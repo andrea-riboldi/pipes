@@ -1,0 +1,139 @@
+package it.micronixnetwork.pipe;
+
+import it.micronixnetwork.pipe.queue.UnitQueue;
+import it.micronixnetwork.xml.XMLBeanViewer;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+public class PipeRunner {
+
+    private static final PipeRunner instance = new PipeRunner();
+
+    private PipeRunner() {
+    };
+
+    private static String[] context_files = new String[] { "pipe.xml" };
+
+    public void start(final String[] args) throws UnitException {
+	final FileSystemXmlApplicationContext sctx = new FileSystemXmlApplicationContext(context_files);
+	System.out.println("Spring context created");
+
+	Pipe pipe = (Pipe) sctx.getBean("pipe");
+
+	final List<PipeLayer> layers = pipe.getLayers();
+
+	final List<UnitQueue> queues = new ArrayList<UnitQueue>();
+
+	if (layers != null && layers.size() > 0) {
+	    UnitQueue queue = null;
+	    
+	    //Inizializzazione layer e unit
+	    
+
+	    // Creazione code
+	    for (int i = 0; i < layers.size() - 1; i++) {
+		queue = new UnitQueue();
+		queues.add(queue);
+	    }
+	    
+	    //Assegnamento code
+	    int i=0;
+	    for (PipeLayer layer : layers) {
+		if (i < 1) {
+		    layer.out=queues.get(i);
+		}
+		if (i >= 1 && i < (layers.size() - 1)) {
+		    layer.in=queues.get(i - 1);
+		    layer.out=queues.get(i);
+		}
+
+		if (i == (layers.size() - 1)) {
+		    layer.in=queues.get(i - 1);
+		}
+		
+		layer.args=args;
+		
+		if(layer.getName()==null){
+		    layer.setName(layer.getUnit().getClass().getSimpleName());
+		}
+		
+		layer.getUnit().init(sctx);
+		
+		i++;
+		
+	    }
+	    
+	    
+
+	    Integer clock = pipe.getClock();
+	    Integer slowFactor=pipe.getSlowFactor();
+
+	    if (clock == null) {
+		clock = 1;
+	    }
+	    
+	    if(slowFactor==null){
+		slowFactor=1;
+	    }
+	    
+
+	    final Integer time = (1000 / clock) * slowFactor;
+	    
+	    final boolean active = true;
+	    Thread executor = new Thread() {
+
+		@Override
+		public void run() {
+		    while (active) {
+			
+			try {
+			    for (PipeLayer layer : layers) {
+				//if(layer.in!=null) System.out.println(layer.getName()+" in  size: "+layer.in.size());
+				//if(layer.out!=null) System.out.println(layer.getName()+" out size: "+layer.out.size());
+				if (layer.getState() == null) {
+					layer.start();
+				} else {
+				    if (layer.getState() == State.WAITING) {
+					layer.active();
+				    }
+				}
+			    }
+			    
+			    this.sleep(time);
+			} catch (RuntimeException e) {
+			    e.printStackTrace();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		    }
+		}
+	    };
+	    executor.start();
+	}
+    }
+
+    public static void main(final String[] args) {
+	try {
+
+	    PipeRunner runner = PipeRunner.getInstace();
+	    runner.start(args);
+
+	} catch (UnitException ex) {
+	    ex.printStackTrace();
+	}
+    }
+
+    public static PipeRunner getInstace() {
+	return instance;
+    }
+
+}

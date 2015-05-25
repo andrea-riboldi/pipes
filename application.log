@@ -1,0 +1,8 @@
+14:37:23 IOException parsing XML document from file [/Users/kobo/Documents/netbeans_prj/pipes/pipe.xml]; nested exception is java.io.FileNotFoundException: pipe.xml (No such file or directory)
+14:38:25 File pipe.xml not found
+14:38:43 pipe.xml file not found
+16:02:51 pipe.xml file not found
+18:56:05 pipe.xml file not found
+18:56:47 pipe.xml file not found
+18:56:47 Pipe created
+18:57:00 pipe.xml file not found
