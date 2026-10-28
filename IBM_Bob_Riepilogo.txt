@@ -1,0 +1,318 @@
+================================================================================
+IBM BOB — RIEPILOGO COMPLETO
+(Riferimento: documentazione IBM Bob e Premium Package for i)
+================================================================================
+
+
+1. COS’È IBM BOB
+--------------------------------------------------------------------------------
+
+IBM Bob è la suite di IBM per lo sviluppo software assistito dall’intelligenza
+artificiale, pensata principalmente per team enterprise che lavorano su codebase
+complesse o legacy lungo l’intero ciclo di vita del software (SDLC).
+
+Scopo generale:
+  • Capire, pianificare, scrivere, testare, mettere in sicurezza e modernizzare
+    il codice
+  • Accelerare la delivery e rendere la modernizzazione (Java, IBM i, mainframe
+    Z, ecc.) più incrementale e governabile
+  • Offrire controlli e tracciabilità adatti all’ambiente enterprise
+
+Copertura SDLC:
+  • Refactoring, migrazioni di framework, upgrade di dipendenze
+  • Generazione e rigenerazione di test, code review
+  • Rilevazione vulnerabilità in fase di scrittura del codice
+  • Orchestrazione multi-modello per bilanciare costo, qualità e performance
+
+
+2. COMPONENTI PRINCIPALI DELLA SUITE
+--------------------------------------------------------------------------------
+
+Bob IDE
+  Ambiente di sviluppo con IA: generazione codice, refactor, debug,
+  documentazione, scaffolding di progetti.
+
+Bob Shell
+  Stessa assistenza IA da terminale: comandi, script, automazione dei flussi
+  SDLC.
+
+Modalità agentiche
+  • Ask   — spiegazioni e analisi senza modificare il codice
+  • Plan  — progettazione e piani tecnici prima dell’implementazione
+  • Agent — implementazione e modifiche al codice
+  • Modalità personalizzate aggiuntive
+
+Subagent
+  Suddivisione di compiti complessi in flussi paralleli; lo spawn richiede
+  approvazione.
+
+MCP (Model Context Protocol)
+  Integrazione con tool e servizi esterni.
+
+Bobalytics
+  Metriche su uso, consumo Bobcoin e produttività (soprattutto nei piani
+  Enterprise).
+
+Strumenti integrati
+  Lettura/scrittura file, esecuzione comandi, analisi codice.
+
+
+3. PREMIUM PACKAGES
+--------------------------------------------------------------------------------
+
+Estensioni a pagamento che aggiungono competenze verticali e workflow guidati:
+
+  • Java Modernization — upgrade Java, migrazioni UI, CVE, diagrammi Mermaid
+  • IBM Bob Premium Package for i — sviluppo e modernizzazione su IBM i (dettaglio
+    in sezione 5)
+  • IBM Z — modernizzazione mainframe (COBOL, PL/I, Assembler, Java); spesso
+    solo Enterprise
+  • DevSecOps — sicurezza più vicina a IDE e pull request
+
+Documentazione generale: https://bob.ibm.com/docs/ide
+Prodotto enterprise: https://www.ibm.com/products/ai-coding-agent
+
+
+4. MODELLO DI CONSUMO E PIANI
+--------------------------------------------------------------------------------
+
+Valuta di consumo: Bobcoin
+
+Piani indicativi (prezzi possono variare per paese, tasse escluse):
+  • Trial    — gratuito 30 giorni, 50 Bobcoin
+  • Pro      — circa 20 USD/mese, 50 Bobcoin
+  • Pro+     — circa 60 USD/mese, 180 Bobcoin
+  • Ultra    — circa 200 USD/mese, 1000 Bobcoin
+  • Enterprise — deploy on-premises o air-gapped, team, pool Bobcoin,
+                 dashboard, Bobalytics, supporto prioritario
+
+Tutti i piani consumer includono tipicamente: modalità agentiche, Bob Shell,
+MCP, literate coding, code review.
+
+Enfasi enterprise:
+  • Orchestrazione multi-modello (~40% risparmio compute citato da IBM)
+  • Guardrail e governance
+  • Deploy in ambienti controllati dal cliente
+
+
+================================================================================
+5. IBM BOB PREMIUM PACKAGE FOR i — FOCUS RPG / IBM i
+================================================================================
+
+5.1 Panoramica
+--------------------------------------------------------------------------------
+
+Il Premium Package for i estende Bob con capacità IA specifiche per lo sviluppo
+applicativo su IBM i: generazione ed spiegazione codice, build, test,
+documentazione e modernizzazione di applicazioni legacy.
+
+Costo indicativo: circa 40 USD/mese (oltre all’abbonamento IBM Bob base).
+
+Requisiti di abbonamento:
+  • Abbonamento IBM Bob attivo
+  • Abbonamento IBM Bob Premium Package for i attivo
+
+Integrazione sistema:
+  • Connessione IBM i obbligatoria tramite Code for IBM i (SSH)
+  • IBM i 7.4 o superiore
+  • SSH daemon attivo (5733-SC1, QSSHD abilitato, regole sshd_config rispettate)
+  • Db2 PTF: su 7.4 consigliato SF99704 livello 13 o superiore
+
+Client Bob IDE supportati ufficialmente:
+  • Windows x64
+  • macOS ARM64 (Apple Silicon)
+  • Windows ARM64, macOS Intel e Linux possono funzionare ma NON sono supportati
+
+Estensioni IBM i installate automaticamente (minimi indicativi):
+  • Code for IBM i 3.0.10+
+  • Db2 for IBM i 2.0.1+
+  • RPGLE, CLLE, IBM i Testing, IBMi Languages
+
+Bob IDE 2.0+ e extension Premium Package for i 1.0+ richiesti.
+
+
+5.2 Linguaggi e tecnologie coperti
+--------------------------------------------------------------------------------
+
+RPG:
+  • OPM: RPG II, RPG III, RPG/400
+  • ILE: RPG IV, fixed-form, free-form (RPGLE)
+  • SQLRPGLE (SQL embedded)
+
+Altri linguaggi IBM i:
+  • CL (CLLE)
+  • DDS (PF, LF, DSPF, PRTF)
+  • COBOL for i (OPM e ILE)
+  • Db2 for i / SQL (modalità IBM i Database)
+  • IBM i IWS (Integrated Web Services) — skill amministrative
+
+Workspace disponibili:
+  • Local — cartella locale (es. clone Git)
+  • Library List — librerie QSYS dalla library list Code for IBM i
+  • IFS Working Directory — file stream su IFS
+
+
+5.3 Modalità IA dedicate
+--------------------------------------------------------------------------------
+
+IBM i Developer
+  Persona: esperto RPG OPM/ILE, CL, DDS, COBOL, SQL Db2.
+  Attività: spiegare, generare, compilare, testare, documentare, modernizzare
+  su QSYS o IFS.
+  Contesto iniettato: connessione, OS version, CCSID, library list, AGENTS.md
+  (QBOBSRC/AGENTS.MD o .bob/AGENTS.md).
+
+IBM i Database
+  Persona: esperto Db2 for i.
+  Attività: SQL, performance, indici, sicurezza, modernizzazione DDS→DDL.
+  Contesto: connessione + job SQL attivo (Db2 for IBM i SQL Job Manager).
+
+Per domande e lavoro IBM i, IBM consiglia queste modalità al posto di Ask/Agent
+generici (hanno tool e RAG documentazione IBM i).
+
+
+5.4 Skill RPG (20+ skill dedicate — elenco principale)
+--------------------------------------------------------------------------------
+
+Fondamentali e architettura:
+  • rpg-primer-basics — RPG II/III/400/RPGLE/ILE
+  • rpg-free-format-fundamentals
+  • rpg-opm-understanding / rpg-ile-understanding
+  • rpgle-specs / rpg-legacy-specs
+  • rpg-data-structures, rpg-procedures-functions
+  • rpg-file-operations, rpg-indicators, rpg-cycle-explained
+
+SQL e integrazione:
+  • rpg-embedded-sql, rpg-sql-cursor
+  • rpg-rla-to-sql (anche in IBM i Database)
+
+Modernizzazione e qualità:
+  • rpg-fixed-to-free
+  • rpg-pgmdb-conversion (I-spec/O-spec program-described)
+  • rpg-ospec-conversion (stampa)
+  • rpg-opm-to-ile (CVTRPGSRC, binding, activation groups)
+  • rpg-refactor-legacy (GOTO, subprocedure)
+  • rpg-code-review
+  • rpg-debugging-techniques (STRDBG, breakpoint, watch)
+  • rpg-api — chiamate API di sistema da RPG
+
+Unit test:
+  • rpgunit-testing
+
+Skill correlate (non RPG ma stesso pacchetto):
+  CL, DDS, COBOL for i, Db2/SQL, IWS, Understand (se componente installato).
+
+
+5.5 Capacità di modernizzazione RPG
+--------------------------------------------------------------------------------
+
+Conversioni supportate (via skill e/o workflow):
+  • OPM → ILE RPGLE
+  • Fixed-form ILE → free-form ILE
+  • Externalizzazione I-spec e O-spec
+  • Program-described DB: modernizzazione I/O specs
+  • O-spec stampa → file stampa esterni (PRTF)
+  • Record Level Access (RLA) → SQL embedded
+  • Refactoring legacy: meno GOTO, subroutine → subprocedure, struttura migliore
+  • Code review per debito tecnico, performance, opportunità di modernizzazione
+
+Tool di sistema:
+  • convert_rpg_source — esecuzione CVTRPGSRC su IBM i
+  • Compilazione tramite action Code for IBM i (get_compile_actions /
+    execute_compile_action)
+
+
+5.6 Workflow guidato “RPG Modernization” (due fasi)
+--------------------------------------------------------------------------------
+
+Disponibilità workspace: locale O library list.
+
+Passi:
+  1. Rilevamento automatico variante RPG (OPM vs ILE fixed)
+  2. Fase 1: externalizzare I-spec e O-spec
+  3. Fase 2: conversione H, F, D, C rimanenti a free-format
+  4. Compilazione pre-conversione opzionale per validare sorgente
+  5. Report riassuntivo finale
+
+Altri workflow IBM i:
+  • Business Rules Extraction — da sorgente RPG (OPM/ILE/SQLRPGLE) a report
+    Markdown business-friendly con diagrammi Mermaid (fino a 3: flusso,
+    decisioni, stati)
+  • RPGUnit Test Plan Creation — documenti Markdown strutturati (moduli,
+    suite, utilities)
+  • RPGUnit Test Suite Implementation — codice test, esecuzione, fix errori
+  • SQL Index Strategy Advisor — analisi performance Db2, raccomandazioni
+    indici, creazione su approvazione
+
+
+5.7 Altre funzionalità IBM i rilevanti
+--------------------------------------------------------------------------------
+
+Tool operativi (con permessi auto-approve configurabili):
+  • read_member, search_qsys, read/search IFS
+  • write_member, write_stream_file
+  • generate_dds (PF, LF, DSPF, PRTF con validazione)
+  • execute_cl_command, execute_sql_statement, execute_pase_command
+  • generate_rpg_unit_test_stub, run_rpg_unit_test_suite (coverage LINE/PROC)
+
+Documentazione via RAG:
+  • search_ibm_i_docs_with_rag — ricerca semantica su documentazione IBM i
+  • fetch_cl_command_doc, search/fetch SQL examples
+
+Componente Understand (opzionale, installazione separata):
+  • Scan applicazioni, inventario oggetti, dipendenze
+  • Skill: understand-app-overview, understand-impact-analysis,
+    understand-program-explainer
+  • Tool: understand_list_apps, understand_app_summary, understand_trace_dependencies,
+    understand_find_symbol, ecc.
+
+
+5.8 Limitazioni e accorgimenti importanti
+--------------------------------------------------------------------------------
+
+Connessione e workspace:
+  • Molti workflow IBM i sono visibili/disponibili solo con connessione IBM i
+    attiva
+  • Il workflow RPG Modernization richiede workspace locale o library list
+  • Business Rules Extraction: locale, IFS working directory o library list
+
+Understand:
+  • Opzionale; skill e tool Understand solo se il componente è installato
+  • L’impact analysis statica segnala blind spot: chiamate dinamiche, caller
+    esterni, scan obsoleti
+
+RPGUnit:
+  • Richiede libreria RPGUnit installata su IBM i (opzionale; via IBM i Testing)
+
+Sicurezza e privilegi:
+  • Bob agisce con i privilegi del profilo utente della connessione Code for IBM i
+  • Principio del minimo privilegio obbligatorio
+  • SQL pericolosi (DROP, UPDATE, TRUNCATE, ecc.): approvazione esplicita
+    (configurabile)
+  • Comandi CL: di default richiesta qualificazione libreria (guardrail)
+  • Tracciabilità SQL: CLIENT_APPLNAME identifica Bob/Code for IBM i
+
+Piattaforma client:
+  • Linux non supportato ufficialmente per Bob IDE con pacchetto i
+
+Nativo dell’IA:
+  • Non sostituisce revisione umana su codice critico in produzione
+  • Output da validare (compilazione, test, review)
+
+
+6. SINTESI FINALE
+--------------------------------------------------------------------------------
+
+IBM Bob è l’offerta IBM “AI coding agent + IDE + Shell” per l’enterprise, con
+consumo a Bobcoin e pacchetti premium verticali.
+
+Per RPG e IBM i, il Premium Package for i (~40 USD/mese + Bob) è l’elemento
+centrale: integrazione SSH con Code for IBM i, oltre 20 skill RPG, tool per
+QSYS/IFS/SQL/CL, workflow strutturati (modernizzazione free-form, regole di
+business, RPGUnit, indici SQL), documentazione IBM i via RAG e analisi
+applicativa opzionale con Understand — sempre entro i limiti di connessione,
+workspace, privilegi utente e analisi statica.
+
+================================================================================
+Fine documento
+================================================================================
